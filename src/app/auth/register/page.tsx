@@ -2,9 +2,9 @@ import { RegisterForm } from '@/components/auth/register-form'
 
 const RegisterPage = () => {
   return (
-    <div>
+    <main>
       <RegisterForm />
-    </div>
+    </main>
   )
 }
 
