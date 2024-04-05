@@ -24,6 +24,7 @@ export const RegisterForm = () => {
   const [isPending, starTransition] = useTransition()
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
+    mode: 'onBlur',
     defaultValues: { email: '', password: '', name: '' },
   })
 
@@ -89,6 +90,24 @@ export const RegisterForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="*****"
+                      type="password"
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirm"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}

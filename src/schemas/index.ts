@@ -25,8 +25,20 @@ export const NewPasswordSchema = z
     message: "Passwords don't match",
     path: ['confirm'],
   })
-export const RegisterSchema = z.object({
-  email: z.string().email({ message: 'Email is required' }),
-  password: z.string().min(6, { message: 'Minimum 6 chararters required' }),
-  name: z.string().min(1, { message: 'Name is required' }),
-})
+export const RegisterSchema = z
+  .object({
+    email: z.string().email({ message: 'Email is required' }),
+    password: z
+      .string()
+      .min(8, { message: 'Minimum 8 chararters required' })
+      .regex(RegexPasswordValidation, {
+        message:
+          ' At least one uppercase letter, one lowercase letter, one number and one special character ',
+      }),
+    confirm: z.string().min(8, { message: "Passwords don't match" }),
+    name: z.string().min(1, { message: 'Name is required' }),
+  })
+  .refine((data) => data.password === data.confirm, {
+    message: "Passwords don't match",
+    path: ['confirm'],
+  })
