@@ -4,6 +4,10 @@ import z from 'zod'
 const RegexPasswordValidation =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 
+export const SettingsSchema = z.object({
+  name: z.optional(z.string()),
+})
+
 export const LoginSchema = z.object({
   email: z.string().email({ message: 'Email is required' }),
   password: z.string().min(1, { message: 'Password is required' }),

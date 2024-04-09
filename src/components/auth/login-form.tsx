@@ -22,6 +22,7 @@ import { login } from '@/actions/login'
 import Link from 'next/link'
 export const LoginForm = () => {
   const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get('callbackUrl')
   const urlError =
     searchParams.get('error') === 'OAuthAccountNotLinked'
       ? 'Email already in use with different provider!'
@@ -39,7 +40,7 @@ export const LoginForm = () => {
     setError('')
     setSucess('')
     starTransition(() => {
-      login(values).then((data) => {
+      login(values, callbackUrl).then((data) => {
         setError(data?.error)
         setSucess(data?.sucess)
       })
